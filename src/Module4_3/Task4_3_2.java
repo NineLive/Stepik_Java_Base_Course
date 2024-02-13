@@ -11,7 +11,7 @@ public class Task4_3_2 {
         Thief thief = new Thief(1000);
         Package content = new Package(WEAPONS, 999);
         Package content2 = new Package(BANNED_SUBSTANCE, 1000);
-        Package content3 = new Package("stones", 1001);
+        Package content3 = new Package("stones", 10);
 
         MailPackage mailPackage = new MailPackage("Terrorist", "Abdula", content);
         MailPackage mailPackage2 = new MailPackage("Terrorist", "Abdula", content2);
@@ -34,7 +34,9 @@ public class Task4_3_2 {
         System.out.println("third pack price: " + ((MailPackage) mailTH3).getContent().getPrice());
         System.out.println("third pack price: " + ((MailPackage) mailTH3).getContent().getContent());
         System.out.println();
-
+//        inspector.processMail(mailTH1);
+//        inspector.processMail(mailTH2);
+//        inspector.processMail(mailTH3);
 
     }
 
@@ -304,8 +306,11 @@ public class Task4_3_2 {
                 int priceOldPackage = ((MailPackage) mail).getContent().getPrice(); //take price from Package
                 String contentOldPackage = ((MailPackage) mail).getContent().getContent();//take content from Package
 
-                if (priceOldPackage < minCost) {
-                    return mail;
+                if (priceOldPackage > minCost) {
+                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
+                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
+                    sumStolen += priceOldPackage;
+                    return newPackage;
                 }
 
                 if (priceOldPackage == minCost) {
@@ -315,17 +320,12 @@ public class Task4_3_2 {
                     return newPackage;
                 }
 
-                if (priceOldPackage > minCost) {
-                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
-                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
-                    sumStolen += priceOldPackage;
-                    return newPackage;
+                if (priceOldPackage < minCost) {
+                    return mail;
                 }
             }
-
-
-            int priceOldPackage2 = ((MailPackage) mail).getContent().getPrice();
-            throw new RuntimeException(String.valueOf(minCost) + " " + String.valueOf(priceOldPackage2) + " " + mail.getClass());
+            //Исключение чисто для проверки что мы тут не окажемся
+            throw new RuntimeException("errrr");
         }
     }
 
@@ -335,6 +335,9 @@ public class Task4_3_2 {
         @Override
         public Sendable processMail(Sendable mail) {
 
+            if (mail instanceof MailMessage) {
+                return mail;
+            }
             if (mail instanceof MailPackage) {
                 String contentInPackage = ((MailPackage) mail).getContent().getContent();
                 switch (contentInPackage) {
@@ -342,13 +345,12 @@ public class Task4_3_2 {
                         throw new IllegalPackageException();
                     case BANNED_SUBSTANCE:
                         throw new IllegalPackageException();
-                    case "stones":
-                        throw new StolenPackageException();
+//                    case "stones":
+//                        throw new StolenPackageException();
                 }
                 if (contentInPackage.contains("stones")) {
                     throw new StolenPackageException();
                 }
-
             }
             return mail;
         }
