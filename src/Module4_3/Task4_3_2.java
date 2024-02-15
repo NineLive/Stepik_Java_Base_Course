@@ -249,40 +249,6 @@ public class Task4_3_2 {
     }
 //========================================================================================
 
-//    public static class Thief implements MailService {
-//        int minCost;
-//        int sumStolen = 0;
-//
-//        public Thief(int minCost) {
-//            this.minCost = minCost;
-//        }
-//
-//        public int getStolenValue() {
-//            return sumStolen;
-//        }
-//
-//        @Override
-//        public Sendable processMail(Sendable mail) {
-//            /**
-//             * the method returns a new MailPackage with 0 price and a formatted string if the old price is higher than the minCost
-//             */
-//            if (mail instanceof MailPackage) {
-//                int priceTakenPackage = ((MailPackage) mail).getContent().getPrice(); //take price from Package
-//                String contentOldPackage = ((MailPackage) mail).getContent().getContent();//take content from Package
-//
-//                if (priceTakenPackage >= minCost) {
-//                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
-//                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
-//                    sumStolen += priceTakenPackage;
-//                    return newPackage;
-//                }
-//
-//            }
-//            return mail;
-//        }
-//    }
-
-    //========================================================================================
     public static class Thief implements MailService {
         int minCost;
         int sumStolen = 0;
@@ -297,37 +263,71 @@ public class Task4_3_2 {
 
         @Override
         public Sendable processMail(Sendable mail) {
-
-            if (mail instanceof MailMessage) {
-                return mail;
-            }
+            /**
+             * the method returns a new MailPackage with 0 price and a formatted string if the old price is higher than the minCost
+             */
             if (mail instanceof MailPackage) {
-
-                int priceOldPackage = ((MailPackage) mail).getContent().getPrice(); //take price from Package
+                int priceTakenPackage = ((MailPackage) mail).getContent().getPrice(); //take price from Package
                 String contentOldPackage = ((MailPackage) mail).getContent().getContent();//take content from Package
 
-                if (priceOldPackage > minCost) {
-                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
+                if (priceTakenPackage >= minCost) {
+                    String newContentPackage = String.format("stones instead of %s", contentOldPackage);
                     MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
-                    sumStolen += priceOldPackage;
+                    sumStolen += priceTakenPackage;
                     return newPackage;
                 }
 
-                if (priceOldPackage == minCost) {
-                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
-                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
-                    sumStolen += priceOldPackage;
-                    return newPackage;
-                }
-
-                if (priceOldPackage < minCost) {
-                    return mail;
-                }
             }
-            //Исключение чисто для проверки что мы тут не окажемся
-            throw new RuntimeException("errrr");
+            return mail;
         }
     }
+
+    //========================================================================================
+//    public static class Thief implements MailService {
+//        int minCost;
+//        int sumStolen = 0;
+//
+//        public Thief(int minCost) {
+//            this.minCost = minCost;
+//        }
+//
+//        public int getStolenValue() {
+//            return sumStolen;
+//        }
+//
+//        @Override
+//        public Sendable processMail(Sendable mail) {
+//
+//            if (mail instanceof MailMessage) {
+//                return mail;
+//            }
+//            if (mail instanceof MailPackage) {
+//
+//                int priceOldPackage = ((MailPackage) mail).getContent().getPrice(); //take price from Package
+//                String contentOldPackage = ((MailPackage) mail).getContent().getContent();//take content from Package
+//
+//                if (priceOldPackage > minCost) {
+//                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
+//                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
+//                    sumStolen += priceOldPackage;
+//                    return newPackage;
+//                }
+//
+//                if (priceOldPackage == minCost) {
+//                    String newContentPackage = String.format("stones instead of {%s}", contentOldPackage);
+//                    MailPackage newPackage = new MailPackage(mail.getFrom(), mail.getTo(), new Package(newContentPackage, 0));
+//                    sumStolen += priceOldPackage;
+//                    return newPackage;
+//                }
+//
+//                if (priceOldPackage < minCost) {
+//                    return mail;
+//                }
+//            }
+//            //Исключение чисто для проверки что мы тут не окажемся
+//            throw new RuntimeException("errrr");
+//        }
+//    }
 
     //========================================================================================
     public static class Inspector implements MailService {
