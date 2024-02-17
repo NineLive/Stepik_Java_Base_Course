@@ -30,12 +30,11 @@ public class Start {
 
 
     public static void formatterWinToUnixDebug(InputStream inputStream, OutputStream outputStream) throws IOException {
-        byte[] buff = new byte[2];
-//        try {
+//        try (outputStream) { //try with resources, why doesn’t it work on stepik?
 //            int firstByte = inputStream.read();
 //            int bn;
-//            if(firstByte!=-1){
 //
+//            if (firstByte != -1) {
 //                buff[0] = (byte) firstByte;
 //                while ((bn = inputStream.read()) != -1) {
 //                    buff[1] = (byte) bn;
@@ -45,55 +44,46 @@ public class Start {
 //                    buff[0] = buff[1];
 //                }
 //                outputStream.write(buff[0]);
-//                outputStream.flush();
 //            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
 //        }
-
-        try (outputStream) {
-            int firstByte = inputStream.read();
-            int bn;
-
-            if (firstByte != -1) {
-                buff[0] = (byte) firstByte;
-                while ((bn = inputStream.read()) != -1) {
-                    buff[1] = (byte) bn;
-                    if (!((buff[0] == 13) & (buff[1] == 10))) {
-                        outputStream.write(buff[0]);
-                    }
-                    buff[0] = buff[1];
+        int[] buff = new int[2];
+        int firstByte = inputStream.read();
+        int bn;
+        if (firstByte != -1) {
+            buff[0] = firstByte;
+            while ((bn = inputStream.read()) != -1) {
+                buff[1] = bn;
+                if (!((buff[0] == 13) && (buff[1] == 10))) {
+                    outputStream.write(buff[0]);
+                    outputStream.flush();
                 }
-                outputStream.write(buff[0]);
+                buff[0] = buff[1];
             }
+            outputStream.write(buff[0]);
         }
+        outputStream.flush();
     }
+
     /**
      * The method replaces all occurrences of the pair of characters '\r' and '\n' with a single character '\n'.
      * If the input encounters a single '\r' character that is not followed by a '\n', then the '\r' character is
      * output unchanged. Characters '\r' has code 13 and '\n' has code 10
-     *
-     *
      */
     public static void formatterWinToUnix(InputStream inputStream) throws IOException {
-        byte[] buff = new byte[2];
-        try {
-            int firstByte = inputStream.read();
-            int bn;
-
-            if (firstByte != -1) {
-                buff[0] = (byte) firstByte;
-                while ((bn = inputStream.read()) != -1) {
-                    buff[1] = (byte) bn;
-                    if (!((buff[0] == 13) & (buff[1] == 10))) {
-                        OUTPUT_STREAM.write(buff[0]);
-                    }
-                    buff[0] = buff[1];
+        int[] buff = new int[2];
+        int firstByte = inputStream.read();
+        int nextByte;
+        if (firstByte != -1) {
+            buff[0] = firstByte;
+            while ((nextByte = inputStream.read()) != -1) {
+                buff[1] = nextByte;
+                if (!((buff[0] == 13) && (buff[1] == 10))) {
+                    OUTPUT_STREAM.write(buff[0]);
                 }
-                OUTPUT_STREAM.write(buff[0]);
+                buff[0] = buff[1];
             }
-        } finally {
-            OUTPUT_STREAM.flush();
+            OUTPUT_STREAM.write(buff[0]);
         }
+        OUTPUT_STREAM.flush();
     }
 }
