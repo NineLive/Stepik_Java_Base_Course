@@ -1,23 +1,25 @@
 package Module5_3_2;
 
-import Module5_3_1.Start1;
-
 import java.io.*;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class Start {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         parserSummOfNumber(System.in);
     }
 
-    public static void parserSummOfNumber(InputStream inputStream) throws IOException {
-        String string = Start1.readAsString(inputStream, Start1.CHARSET);
-        String[] parts = string.split("[\\n ]");
+    public static void parserSummOfNumber(InputStream inputStream) {
         double summ = 0.0;
-        for (String x : parts) {
-            try {
-                summ += Double.parseDouble(x);
-            } catch (NumberFormatException e) {
+        Reader reader = new InputStreamReader(inputStream);
+        Scanner scanner = new Scanner(reader)
+                .useDelimiter("[\\n ]")
+                .useLocale(Locale.forLanguageTag("en"));
+        while (scanner.hasNext()){
+            if(scanner.hasNextDouble()){
+                summ += scanner.nextDouble();
+            } else {
+                scanner.next();
             }
         }
         PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
