@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Animal implements Serializable {
-    private final String name;
+    public final String name;
     public final String age;
     public Animal(String name, String age) {
         this.name = name;
