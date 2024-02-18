@@ -15,8 +15,8 @@ public class Start {
         Scanner scanner = new Scanner(reader)
                 .useDelimiter("[\\n ]")
                 .useLocale(Locale.forLanguageTag("en"));
-        while (scanner.hasNext()){
-            if(scanner.hasNextDouble()){
+        while (scanner.hasNext()) {
+            if (scanner.hasNextDouble()) {
                 summ += scanner.nextDouble();
             } else {
                 scanner.next();

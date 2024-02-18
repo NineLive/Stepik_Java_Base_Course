@@ -2,7 +2,6 @@ package Module5_2_1;
 
 import java.io.*;
 
-
 public class Start {
     public static void start() throws IOException {
         byte[] mass = new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0xff};
