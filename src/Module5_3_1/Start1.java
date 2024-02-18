@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class Start {
+public class Start1 {
     public static final Charset CHARSET = StandardCharsets.US_ASCII;
 
     public static void main(String[] args) throws IOException {
