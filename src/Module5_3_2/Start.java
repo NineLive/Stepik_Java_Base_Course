@@ -20,8 +20,8 @@ public class Start {
             } catch (NumberFormatException e) {
             }
         }
-        Writer writer = new OutputStreamWriter(System.out);
-        writer.write(String.format(Locale.forLanguageTag("en"), "%.6f", summ));
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
+        writer.printf(Locale.forLanguageTag("en"), "%.6f", summ);
         writer.close();
     }
 }
