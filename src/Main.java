@@ -1,8 +1,9 @@
-import Module5_4_1.Start;
+import JokeTask.Joke;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Start.main(args);
+//        Joke.main(args);
+        System.out.println("hello world");
     }
 }
 
