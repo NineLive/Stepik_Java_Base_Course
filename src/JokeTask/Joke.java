@@ -3,8 +3,7 @@ package JokeTask;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 public class Joke {
     public static final String JOKERGE = "public class joke { public static void main(String[] args) { System.out.println(\"hello world\"); } }";
@@ -12,9 +11,20 @@ public class Joke {
     public static void main(String[] args) throws IOException {
         Path path = Paths.get(args[0]);
 //        Path path = Paths.get("D:\\joke");
-        jokerMethod(path);
+
+//        jokerMethod(path);
+        jokerMethodProPlus(path);
     }
 
+    public static void jokerMethodProPlus(Path path) throws IOException {
+        Files.walkFileTree(path, new MyVisitor());
+    }
+
+
+
+
+
+    @Deprecated
     public static void jokerMethod(Path path) throws IOException {
         String currentPath = path.toString();
         File currentFolder = new File(currentPath);
@@ -30,4 +40,5 @@ public class Joke {
             }
         }
     }
+
 }
