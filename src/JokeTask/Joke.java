@@ -12,15 +12,12 @@ public class Joke {
         Path path = Paths.get(args[0]);
 //        Path path = Paths.get("D:\\joke");
 
-//        jokerMethod(path);
         jokerMethodProPlus(path);
     }
 
     public static void jokerMethodProPlus(Path path) throws IOException {
-        Files.walkFileTree(path, new MyVisitor());
+        Files.walkFileTree(path, new MyVisitor(JOKERGE));
     }
-
-
 
 
 
@@ -40,5 +37,4 @@ public class Joke {
             }
         }
     }
-
 }
