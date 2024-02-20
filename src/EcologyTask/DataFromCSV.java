@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DataFromCSV {
-    String delimiter = "|";
+    String delimiter = "\\|";
     String header;
     Path path;
     int maxConsumption;
