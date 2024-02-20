@@ -11,19 +11,16 @@ public class Start {
 
     public static void parserSummOfNumber(InputStream inputStream) {
         double summ = 0.0;
-        Reader reader = new InputStreamReader(inputStream);
-        Scanner scanner = new Scanner(reader)
+        Scanner scanner = new Scanner(inputStream)
                 .useDelimiter("[\\n ]")
                 .useLocale(Locale.forLanguageTag("en"));
-        while (scanner.hasNext()) {
-            if (scanner.hasNextDouble()) {
+        while (scanner.hasNext()){
+            if(scanner.hasNextDouble()){
                 summ += scanner.nextDouble();
             } else {
                 scanner.next();
             }
         }
-        PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
-        writer.printf(Locale.forLanguageTag("en"), "%.6f", summ);
-        writer.close();
+        System.out.printf("%.6f", summ);
     }
 }
