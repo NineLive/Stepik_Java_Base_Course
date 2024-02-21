@@ -1,10 +1,12 @@
 package EcologyTask;
 
 public class User {
-    private int id, waterCount, gasCount1, gasCount2, electroCount1, electroCount2;
+    private int id;
     private String name;
+    private int waterCount, gasCount1, gasCount2, electroCount1, electroCount2;
 
-    public User(String [] attributes) {
+
+    public User(String[] attributes) {
         this.id = Integer.parseInt(attributes[0]);
         this.name = attributes[1];
         this.waterCount = Integer.parseInt(attributes[2]);
@@ -12,7 +14,6 @@ public class User {
         this.gasCount2 = Integer.parseInt(attributes[4]);
         this.electroCount1 = Integer.parseInt(attributes[5]);
         this.electroCount2 = Integer.parseInt(attributes[6]);
-
     }
 
     public int getId() {
@@ -43,14 +44,11 @@ public class User {
         return name;
     }
 
-    public boolean isEcologyUser(int maxConsumption) {
-        if (getWaterCount() > maxConsumption) {
-            return false;
-        } else if (getElectroCount1() + getElectroCount2() > maxConsumption) {
-            return false;
-        } else if (getGasCount1() + getGasCount2() > maxConsumption) {
-            return false;
-        }
-        return true;
+    public int getAllGas() {
+        return getGasCount1() + getGasCount2();
+    }
+
+    public int getAllElectro() {
+        return getElectroCount1() + getElectroCount2();
     }
 }
