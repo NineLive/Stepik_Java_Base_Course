@@ -3,18 +3,16 @@ package EcologyTask;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-
+@Deprecated
 public class DataFromCSV {
     String delimiter = "\\|";
     String header;
     Path path;
-    int maxConsumption;
+
     ArrayList<User> users = new ArrayList<>();
 
-    DataFromCSV(String path, int maxConsumption) {
+    DataFromCSV(String path) {
         this.path = Paths.get(path);
-        this.maxConsumption = maxConsumption;
-
     }
 
     public Path getPath() {
