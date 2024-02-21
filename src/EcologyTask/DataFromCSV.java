@@ -3,6 +3,8 @@ package EcologyTask;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+// Now this class is useless
 @Deprecated
 public class DataFromCSV {
     String delimiter = "\\|";
