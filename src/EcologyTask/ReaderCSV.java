@@ -15,8 +15,8 @@ public class ReaderCSV {
     /**
      * Read data from CSV file and return ArrayList of users
      */
-    public ArrayList<User> read() {
-        ArrayList<User> users = new ArrayList<>();
+    public List<User> read() {
+        List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toString()));
              Scanner scanner = new Scanner(reader).useDelimiter("\\s+").useLocale(Locale.ENGLISH)) {
             reader.readLine();

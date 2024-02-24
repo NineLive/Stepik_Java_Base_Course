@@ -4,6 +4,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WriterCSV {
     private static Path path;
@@ -15,7 +16,7 @@ public class WriterCSV {
     /**
      * Takes information from an instance of the DataFromCSV class and writes it to a new CSV file with the selected path.
      */
-    public void writeNewCSV(ArrayList<User> ecoUsers) {
+    public void writeNewCSV(List<User> ecoUsers) {
         String newFilePath = path.toString();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(newFilePath))) {
             writer.write(createHeader());
