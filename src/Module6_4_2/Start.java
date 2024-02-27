@@ -21,7 +21,7 @@ public class Start {
             Comparator<? super T> order,
             BiConsumer<? super T, ? super T> minMaxConsumer) {
         List<T> items = stream.sorted(order).collect(Collectors.toList());
-//        Supplier<Stream<? extends T>> streamSupplier = items::stream;
+//        Supplier<Stream<? extends T>> streamSupplier = Stream.of(stream).flatMap(str -> );
         if(items.isEmpty()){
             minMaxConsumer.accept(null, null);
             return;

@@ -16,16 +16,17 @@ public class Start {
 
     public static void counter() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Stream<String> stream = reader.lines();
+        Stream<String> streamOfStrings = reader.lines();
 
         Map<String, Integer> treeMap = new TreeMap<>();
-        String[] strr = stream
-                .flatMap((string) -> Arrays.stream(string.split("(?U)\\W+")))
+        String[] str = streamOfStrings
+                .flatMap(string -> Arrays.stream(string.split("(?U)\\W+")))
+                .map(String::toLowerCase)
                 .peek(string -> {
-                    if (!(treeMap.containsKey(string.toLowerCase()))) {
-                        treeMap.put(string.toLowerCase(), 1);
+                    if (!(treeMap.containsKey(string))) {
+                        treeMap.put(string, 1);
                     } else {
-                        treeMap.put(string.toLowerCase(), treeMap.get(string.toLowerCase()) + 1);
+                        treeMap.put(string, treeMap.get(string) + 1);
                     }
                 })
                 .toArray(String[]::new);
@@ -35,6 +36,5 @@ public class Start {
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .limit(10)
                 .forEach(e -> System.out.println(e.getKey() + " - " + e.getValue()));
-
     }
 }
