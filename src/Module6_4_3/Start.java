@@ -35,6 +35,6 @@ public class Start {
                 .stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .limit(10)
-                .forEach(e -> System.out.println(e.getKey() + " - " + e.getValue()));
+                .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
     }
 }
