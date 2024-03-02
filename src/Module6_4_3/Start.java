@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Start {
@@ -19,21 +21,21 @@ public class Start {
         Stream<String> streamOfStrings = reader.lines();
 
         Map<String, Integer> treeMap = new TreeMap<>();
-        String[] str = streamOfStrings
+        streamOfStrings
                 .flatMap(string -> Arrays.stream(string.split("(?U)\\W+")))
                 .map(String::toLowerCase)
-                .peek(string -> {
-                    if (!(treeMap.containsKey(string))) {
-                        treeMap.put(string, 1);
-                    } else {
-                        treeMap.put(string, treeMap.get(string) + 1);
-                    }
-                })
-                .toArray(String[]::new);
-
-        treeMap.entrySet()
+//                .peek(string -> {
+//                    if (!(treeMap.containsKey(string))) {
+//                        treeMap.put(string, 1);
+//                    } else {
+//                        treeMap.put(string, treeMap.get(string) + 1);
+//                    }
+//                })
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet()
                 .stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.comparingByKey())
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(10)
                 .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
     }
