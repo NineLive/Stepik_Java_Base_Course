@@ -1,4 +1,4 @@
-package EcologyTask;
+package Dop_EcologyTask;
 
 import java.io.*;
 import java.nio.file.Path;

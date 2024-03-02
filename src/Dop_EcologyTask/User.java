@@ -1,4 +1,4 @@
-package EcologyTask;
+package Dop_EcologyTask;
 
 public class User {
     private int id;

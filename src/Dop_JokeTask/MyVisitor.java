@@ -1,4 +1,4 @@
-package JokeTask;
+package Dop_JokeTask;
 
 import java.io.File;
 import java.io.FileWriter;
