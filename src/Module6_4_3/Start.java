@@ -19,23 +19,15 @@ public class Start {
     public static void counter() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Stream<String> streamOfStrings = reader.lines();
-
-        Map<String, Integer> treeMap = new TreeMap<>();
         streamOfStrings
                 .flatMap(string -> Arrays.stream(string.split("(?U)\\W+")))
                 .map(String::toLowerCase)
-//                .peek(string -> {
-//                    if (!(treeMap.containsKey(string))) {
-//                        treeMap.put(string, 1);
-//                    } else {
-//                        treeMap.put(string, treeMap.get(string) + 1);
-//                    }
-//                })
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+//                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.toMap(Function.identity(), value -> 1, Integer::sum))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .limit(10)
                 .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
     }
