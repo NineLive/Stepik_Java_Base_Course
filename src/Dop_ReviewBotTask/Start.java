@@ -41,15 +41,4 @@ public class Start {
                 .forEach(result::append);
         return result.toString();
     }
-
-//    public static String reportHistory2(List<Report> reports, String studentUserName, int count) {
-//        StringBuilder result = new StringBuilder();
-//        reports.stream()
-//                .filter(report -> Objects.equals(report.getStudentUserName(), studentUserName))
-//                .sorted(Comparator.comparing(Report::getDate).reversed())
-//                .limit(count)
-//                .sorted(Comparator.comparing(Report::getDate))
-//                .forEach(result::append);
-//        return result.toString();
-//    }
 }

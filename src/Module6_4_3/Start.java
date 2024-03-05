@@ -22,7 +22,6 @@ public class Start {
         streamOfStrings
                 .flatMap(string -> Arrays.stream(string.split("(?U)\\W+")))
                 .map(String::toLowerCase)
-//                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .collect(Collectors.toMap(Function.identity(), value -> 1, Integer::sum))
                 .entrySet()
                 .stream()
