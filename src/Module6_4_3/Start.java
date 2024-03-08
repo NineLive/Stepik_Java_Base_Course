@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Start {
     public static void main(String[] args) {
@@ -18,15 +17,15 @@ public class Start {
 
     public static void counter() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Stream<String> streamOfStrings = reader.lines();
-        streamOfStrings
+        reader.lines()
                 .flatMap(string -> Arrays.stream(string.split("(?U)\\W+")))
                 .map(String::toLowerCase)
                 .collect(Collectors.toMap(Function.identity(), value -> 1, Integer::sum))
                 .entrySet()
                 .stream()
-                .sorted(Map.Entry.comparingByKey())
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+//                .sorted(Map.Entry.comparingByKey())
+//                .sorted(Map.Entry.comparingByKey().thenComparing(Comparator.comparing(x->x.getValue())))
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed().thenComparing(Map.Entry.comparingByKey()))
                 .limit(10)
                 .forEach(entry -> System.out.println(entry.getKey() + " - " + entry.getValue()));
     }

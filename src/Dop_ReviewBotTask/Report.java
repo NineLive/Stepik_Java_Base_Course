@@ -26,12 +26,15 @@ public class Report {
         return studentUserName;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Integer getHours() {
+        return hours;
     }
 
-    @Override
-    public String toString() {
-        return studentUserName + "\n" + date + "\n" + hours + "\n" + title + "\n";
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }

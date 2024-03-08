@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Start {
     public static void main(String[] args) {
@@ -30,15 +31,16 @@ public class Start {
     }
 
     public static String reportHistory(List<Report> reports, String studentUserName, int count) {
-        StringBuilder result = new StringBuilder();
-        reports.stream()
+        return reports.stream()
                 .filter(report -> Objects.equals(report.getStudentUserName(), studentUserName))
                 .sorted(Comparator.comparing(Report::getDate).reversed())
                 .limit(count)
                 .sorted(Comparator.comparing(Report::getDate))
-                .map(Report::toString)
-                .map(report -> (count > 1) ? report + "-----------------\n" : report)
-                .forEach(result::append);
-        return result.toString();
+                .map(Start::ReportToString)
+                .collect(Collectors.joining("-----------------\n"));
+    }
+
+    public static String ReportToString(Report report) {
+        return report.getStudentUserName() + "\n" + report.getDate() + "\n" + report.getHours() + "\n" + report.getTitle() + "\n";
     }
 }

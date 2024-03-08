@@ -2,7 +2,6 @@ package Module6_4_2;
 
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Start {
@@ -10,7 +9,6 @@ public class Start {
         Integer[] ints = {13, 16, 25, 62, 384, 745, 502, 200};
         Comparator<Integer> comparator = Comparator.comparingInt(o -> o);
         BiConsumer<Integer, Integer> biConsumer = (t, u) -> System.out.println(t + " " + u);
-
 
         findMinMax(Arrays.stream(ints), comparator, biConsumer);
 
@@ -20,14 +18,15 @@ public class Start {
             Stream<? extends T> stream,
             Comparator<? super T> order,
             BiConsumer<? super T, ? super T> minMaxConsumer) {
-        List<T> items = stream.sorted(order).collect(Collectors.toList());
-//        Supplier<Stream<? extends T>> streamSupplier = Stream.of(stream).flatMap(str -> );
-        if(items.isEmpty()){
+
+        Stream.Builder<T> builder = Stream.builder();
+        Optional<? extends T> min = stream.peek(builder::add).min(order);
+        Optional<? extends T> max = builder.build().max(order);
+
+        if (!min.isPresent()) {
             minMaxConsumer.accept(null, null);
             return;
         }
-        Optional<? extends T> min = items.stream().min(order);
-        Optional<? extends T> max = items.stream().max(order);
         minMaxConsumer.accept(min.get(), max.get());
     }
 }
